@@ -21,7 +21,6 @@
         <dependency>
             <groupId>com.electricity.project</groupId>
             <artifactId>service-api</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.electricity.project</groupId>
