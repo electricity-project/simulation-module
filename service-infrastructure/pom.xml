@@ -52,5 +52,9 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.electricity.project</groupId>
+            <artifactId>service-api</artifactId>
+        </dependency>
     </dependencies>
 </project>
