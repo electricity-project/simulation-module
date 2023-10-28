@@ -1,8 +1,8 @@
 package com.electricity.project.simulationmodule.domains.windturbine.control;
 
 import com.electricity.project.simulationmodule.api.WindTurbineDTO;
-import com.electricity.project.simulationmodule.domains.powerstation.control.PowerStationMapper;
-import com.electricity.project.simulationmodule.domains.powerstation.entity.PowerStation;
+
+import com.electricity.project.simulationmodule.api.PowerStationState;
 import com.electricity.project.simulationmodule.domains.windturbine.entity.WindTurbine;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -12,28 +12,29 @@ public class WindTurbineMapper {
 
     public static WindTurbine mapToEntity(WindTurbineDTO windTurbineDTO) {
         return WindTurbine.builder()
+                .id(windTurbineDTO.getId().orElse(-1L))
+                .name(windTurbineDTO.getName())
+                .state(windTurbineDTO.getState().orElse(PowerStationState.WORKING))
+                .ipv4Address(windTurbineDTO.getIpv4Address())
+                .createdTime(windTurbineDTO.getCreationTime())
                 .bladeLength(windTurbineDTO.getBladeLength())
                 .minimalEffectivityCoefficient(windTurbineDTO.getMinimalEffectivityCoefficient())
                 .maximalEffectivityCoefficient(windTurbineDTO.getMaximalEffectivityCoefficient())
                 .powerCoefficient(windTurbineDTO.getPowerCoefficient())
-                .powerStation(PowerStationMapper.mapToEntity(windTurbineDTO))
                 .build();
     }
 
     public static WindTurbineDTO mapToDTO(WindTurbine windTurbine){
-        PowerStation powerStation = windTurbine.getPowerStation();
         return WindTurbineDTO.builder()
                 .id(windTurbine.getId())
-                .name(powerStation.getName())
-                .ipv4Address(powerStation.getIpv4Address())
-                .creationTime(powerStation.getCreatedTime())
+                .name(windTurbine.getName())
+                .ipv4Address(windTurbine.getIpv4Address())
+                .creationTime(windTurbine.getCreatedTime())
                 .bladeLength(windTurbine.getBladeLength())
                 .minimalEffectivityCoefficient(windTurbine.getMinimalEffectivityCoefficient())
                 .maximalEffectivityCoefficient(windTurbine.getMaximalEffectivityCoefficient())
                 .powerCoefficient(windTurbine.getPowerCoefficient())
                 .build();
-
     }
-
 
 }

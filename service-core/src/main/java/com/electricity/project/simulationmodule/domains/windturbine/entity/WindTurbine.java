@@ -1,31 +1,39 @@
 package com.electricity.project.simulationmodule.domains.windturbine.entity;
 
-import com.electricity.project.simulationmodule.domains.powerstation.entity.PowerStation;
-import jakarta.persistence.*;
+import com.electricity.project.simulationmodule.domains.power.entity.PowerStation;
+import com.electricity.project.simulationmodule.domains.powerproduction.entity.PowerProductionTask;
+import com.electricity.project.simulationmodule.domains.powerproduction.entity.WindTurbineProductionTask;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
-@Data
 @Entity
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class WindTurbine {
+@SuperBuilder
+@Getter
+@Setter
+public class WindTurbine extends PowerStation {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    @Column(nullable = false)
+    private long bladeLength;
 
-    private Long bladeLength;
+    @Column(nullable = false)
+    private long minimalEffectivityCoefficient;
 
-    private Long minimalEffectivityCoefficient;
+    @Column(nullable = false)
+    private long maximalEffectivityCoefficient;
 
-    private Long maximalEffectivityCoefficient;
+    @Column(nullable = false)
+    private long powerCoefficient;
 
-    private Long powerCoefficient;
 
-    @OneToOne
-    private PowerStation powerStation;
+    @Override
+    public PowerProductionTask<WindTurbine> createTask() {
+        return new WindTurbineProductionTask(this);
+    }
 }

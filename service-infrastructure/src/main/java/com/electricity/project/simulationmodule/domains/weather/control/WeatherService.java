@@ -4,13 +4,15 @@ import com.electricity.project.simulationmodule.domains.weather.entity.WeatherEn
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class WeatherService {
     private final WeatherRepository weatherRepository;
 
-    public WeatherEntity getLastWeather() {
-        return weatherRepository.getFirstByOrderByTimestampDesc();
+    public Optional<WeatherEntity> getLastWeather() {
+        return weatherRepository.findFirstByOrderByTimestampDesc();
     }
 
     public void addNewWeather(WeatherEntity newWeather) {

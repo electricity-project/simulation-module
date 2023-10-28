@@ -1,6 +1,6 @@
-package com.electricity.project.simulationmodule.domains.powerstation.control;
+package com.electricity.project.simulationmodule.domains.power.control;
 
-import com.electricity.project.simulationmodule.domains.powerstation.entity.PowerStation;
+import com.electricity.project.simulationmodule.domains.power.entity.PowerStation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
