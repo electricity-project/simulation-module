@@ -1,10 +1,12 @@
 package com.electricity.project.simulationmodule.domains.weather.data;
 
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Setter
+@ToString
 public abstract class WeatherResponseAbstract {
 
     protected LocalDateTime time;

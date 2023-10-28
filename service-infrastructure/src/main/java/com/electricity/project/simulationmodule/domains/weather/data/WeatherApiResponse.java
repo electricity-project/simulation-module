@@ -3,15 +3,13 @@ package com.electricity.project.simulationmodule.domains.weather.data;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
-@JsonRootName("current")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WeatherApiResponse extends WeatherResponseAbstract{
+public class WeatherApiResponse extends WeatherResponseAbstract {
 
     @JsonProperty("last_updated")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")

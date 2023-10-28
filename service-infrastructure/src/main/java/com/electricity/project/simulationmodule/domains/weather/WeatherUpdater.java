@@ -23,7 +23,7 @@ public class WeatherUpdater {
 
     public Optional<WeatherEntity> update() {
         Future<WeatherResponseAbstract> weatherResponseFuture = weatherApiExecutor.submit(
-                () -> weatherClient.getRealTimeWeather(new Coordinates(1.4, 1.4)));
+                () -> weatherClient.getRealTimeWeather(new Coordinates(17.038538, 51.107883)));
 
         Optional<WeatherEntity> weatherEntity;
         try {

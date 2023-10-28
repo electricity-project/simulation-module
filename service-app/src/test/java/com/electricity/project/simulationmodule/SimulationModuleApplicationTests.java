@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(
+		properties = { "api.weather.key=test-key" }
+)
 class SimulationModuleApplicationTests {
 
 	@Test

@@ -14,8 +14,6 @@ public class MapperConfiguration {
     @Bean
     public ObjectMapper getMapper() {
         return JsonMapper.builder()
-                //TODO FIX deserialization for WEATHER_API
-//                .configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true)
                 .addModule(new JavaTimeModule())
                 .addModule(new Jdk8Module())
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)

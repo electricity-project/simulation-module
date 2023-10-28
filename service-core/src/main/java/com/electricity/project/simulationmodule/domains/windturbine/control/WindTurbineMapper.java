@@ -1,20 +1,18 @@
 package com.electricity.project.simulationmodule.domains.windturbine.control;
 
-import com.electricity.project.simulationmodule.api.WindTurbineDTO;
-
-import com.electricity.project.simulationmodule.api.PowerStationState;
+import com.electricity.project.simulationmodule.api.windturbine.WindTurbineDTO;
 import com.electricity.project.simulationmodule.domains.windturbine.entity.WindTurbine;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class WindTurbineMapper {
+public final class WindTurbineMapper {
 
     public static WindTurbine mapToEntity(WindTurbineDTO windTurbineDTO) {
         return WindTurbine.builder()
                 .id(windTurbineDTO.getId().orElse(-1L))
                 .name(windTurbineDTO.getName())
-                .state(windTurbineDTO.getState().orElse(PowerStationState.WORKING))
+                .state(windTurbineDTO.getState())
                 .ipv4Address(windTurbineDTO.getIpv4Address())
                 .createdTime(windTurbineDTO.getCreationTime())
                 .bladeLength(windTurbineDTO.getBladeLength())
@@ -29,6 +27,7 @@ public class WindTurbineMapper {
                 .id(windTurbine.getId())
                 .name(windTurbine.getName())
                 .ipv4Address(windTurbine.getIpv4Address())
+                .state(windTurbine.getState())
                 .creationTime(windTurbine.getCreatedTime())
                 .bladeLength(windTurbine.getBladeLength())
                 .minimalEffectivityCoefficient(windTurbine.getMinimalEffectivityCoefficient())
@@ -36,5 +35,4 @@ public class WindTurbineMapper {
                 .powerCoefficient(windTurbine.getPowerCoefficient())
                 .build();
     }
-
 }

@@ -16,8 +16,8 @@ public interface PowerStationDTO {
     @JsonProperty(value = "ipv4", required = true)
     String getIpv4Address();
 
-    @JsonProperty(value = "state", required = false)
-    Optional<PowerStationState> getState();
+    @JsonProperty(value = "state", required = true)
+    PowerStationState getState();
 
     @JsonProperty(value = "creationTime", required = true)
     LocalDateTime getCreationTime();

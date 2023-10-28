@@ -1,6 +1,6 @@
 package com.electricity.project.simulationmodule.domains.windturbine.boundary;
 
-import com.electricity.project.simulationmodule.api.WindTurbineDTO;
+import com.electricity.project.simulationmodule.api.windturbine.WindTurbineDTO;
 import com.electricity.project.simulationmodule.domains.windturbine.control.WindTurbineMapper;
 import com.electricity.project.simulationmodule.domains.windturbine.control.WindTurbineService;
 import lombok.RequiredArgsConstructor;
