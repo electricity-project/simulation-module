@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class WeatherEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -35,4 +37,8 @@ public class WeatherEntity {
 
     @Column(name = "PRESSURE_PA")
     private double pressure;
+
+    public double getTemperatureInKelvin() {
+        return temperature + 273.15;
+    }
 }
