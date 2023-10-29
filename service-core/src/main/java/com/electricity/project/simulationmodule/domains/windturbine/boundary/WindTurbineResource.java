@@ -1,10 +1,9 @@
 package com.electricity.project.simulationmodule.domains.windturbine.boundary;
 
 import com.electricity.project.simulationmodule.api.windturbine.WindTurbineDTO;
-import com.electricity.project.simulationmodule.domains.sonarpanel.control.exception.SonarPanelNotExistsException;
 import com.electricity.project.simulationmodule.domains.windturbine.control.WindTurbineMapper;
-import com.electricity.project.simulationmodule.domains.windturbine.control.exception.WindTurbineNotFoundException;
 import com.electricity.project.simulationmodule.domains.windturbine.control.WindTurbineService;
+import com.electricity.project.simulationmodule.domains.windturbine.control.exception.WindTurbineNotFoundException;
 import com.electricity.project.simulationmodule.domains.windturbine.entity.WindTurbine;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +44,7 @@ public class WindTurbineResource {
     }
 
     @ExceptionHandler(WindTurbineNotFoundException.class)
-    private ResponseEntity<Void> handleWindTurbineNotFoundException(SonarPanelNotExistsException exception) {
+    private ResponseEntity<Void> handleWindTurbineNotFoundException(WindTurbineNotFoundException exception) {
         log.error("Wind turbine not found", exception);
         return ResponseEntity.notFound().build();
     }

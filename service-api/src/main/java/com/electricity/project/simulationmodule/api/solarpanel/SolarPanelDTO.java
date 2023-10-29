@@ -8,12 +8,12 @@ import org.immutables.value.Value;
 
 @Value.Immutable
 @Value.Style()
-@JsonSerialize(as = ImmutableSonarPanelDTO.class)
-@JsonDeserialize(as = ImmutableSonarPanelDTO.class)
-public interface SonarPanelDTO extends PowerStationDTO {
+@JsonSerialize(as = ImmutableSolarPanelDTO.class)
+@JsonDeserialize(as = ImmutableSolarPanelDTO.class)
+public interface SolarPanelDTO extends PowerStationDTO {
 
-    static ImmutableSonarPanelDTO.Builder builder() {
-        return ImmutableSonarPanelDTO.builder();
+    static ImmutableSolarPanelDTO.Builder builder() {
+        return ImmutableSolarPanelDTO.builder();
     }
 
     @JsonProperty(value = "maxPower", required = true)

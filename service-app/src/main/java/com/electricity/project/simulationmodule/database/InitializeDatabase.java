@@ -3,11 +3,11 @@ package com.electricity.project.simulationmodule.database;
 import com.electricity.project.simulationmodule.api.*;
 import com.electricity.project.simulationmodule.api.solarpanel.ImmutableInsolationFactorWeightsDTO;
 import com.electricity.project.simulationmodule.api.solarpanel.ImmutablePowerCoefficientFactorDTO;
-import com.electricity.project.simulationmodule.api.solarpanel.ImmutableSonarPanelDTO;
-import com.electricity.project.simulationmodule.api.solarpanel.SonarPanelDTO;
+import com.electricity.project.simulationmodule.api.solarpanel.ImmutableSolarPanelDTO;
+import com.electricity.project.simulationmodule.api.solarpanel.SolarPanelDTO;
 import com.electricity.project.simulationmodule.api.windturbine.ImmutableWindTurbineDTO;
 import com.electricity.project.simulationmodule.api.windturbine.WindTurbineDTO;
-import com.electricity.project.simulationmodule.domains.sonarpanel.control.SonarPanelService;
+import com.electricity.project.simulationmodule.domains.solarpanel.control.SolarPanelService;
 import com.electricity.project.simulationmodule.domains.windturbine.control.WindTurbineService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -23,17 +23,17 @@ import java.util.List;
 public class InitializeDatabase {
 
     private final WindTurbineService windTurbineService;
-    private final SonarPanelService sonarPanelService;
+    private final SolarPanelService solarPanelService;
 
     @Value("${database.initialization.wind.turbines.number}")
     private int numberOfWindTurbines;
-    @Value("${database.initialization.sonar.panels.number}")
-    private int numberOfSonarPanels;
+    @Value("${database.initialization.solar.panels.number}")
+    private int numberOfSolarPanels;
 
     @PostConstruct
     void initializeDatabase() {
         initializeWindTurbines();
-        initializeSonarPanels();
+        initializeSolarPanels();
     }
 
     private void initializeWindTurbines() {
@@ -55,10 +55,10 @@ public class InitializeDatabase {
         windTurbineService.connectWithNewWindTurbines(windTurbines);
     }
 
-    private void initializeSonarPanels() {
-        List<SonarPanelDTO> sonarPanels = new ArrayList<>();
+    private void initializeSolarPanels() {
+        List<SolarPanelDTO> solarPanels = new ArrayList<>();
 
-        ImmutableSonarPanelDTO.Builder sonarPanelBuilder = ImmutableSonarPanelDTO.builder()
+        ImmutableSolarPanelDTO.Builder solarPanelBuilder = ImmutableSolarPanelDTO.builder()
                 .creationTime(LocalDateTime.now())
                 .ipv4Address("192.168.0.2")
                 .state(PowerStationState.WORKING)
@@ -74,10 +74,10 @@ public class InitializeDatabase {
                         .meanValue(0.75)
                         .build());
 
-        for (int i = 0; i < numberOfSonarPanels; i++) {
-            sonarPanels.add(sonarPanelBuilder.name("SonarPanel-" + i).build());
+        for (int i = 0; i < numberOfSolarPanels; i++) {
+            solarPanels.add(solarPanelBuilder.name("SolarPanel-" + i).build());
         }
 
-        sonarPanelService.connectWithNewSonarPanels(sonarPanels);
+        solarPanelService.connectWithNewSolarPanels(solarPanels);
     }
 }

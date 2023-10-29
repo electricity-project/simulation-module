@@ -1,8 +1,8 @@
-package com.electricity.project.simulationmodule.domains.sonarpanel.entity;
+package com.electricity.project.simulationmodule.domains.solarpanel.entity;
 
 import com.electricity.project.simulationmodule.domains.power.entity.PowerStation;
 import com.electricity.project.simulationmodule.domains.powerproduction.entity.PowerProductionTask;
-import com.electricity.project.simulationmodule.domains.powerproduction.entity.SonarPanelProductionTask;
+import com.electricity.project.simulationmodule.domains.powerproduction.entity.SolarPanelProductionTask;
 import com.electricity.project.simulationmodule.domains.weather.entity.WeatherEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Getter
 @Setter
-public class SonarPanel extends PowerStation {
+public class SolarPanel extends PowerStation {
 
     @Column(nullable = false)
     private double maxPower;
@@ -42,7 +42,7 @@ public class SonarPanel extends PowerStation {
     private double meanPowerCoefficientFactorValue;
 
     @Override
-    public PowerProductionTask<SonarPanel> createTask(WeatherEntity weatherEntity) {
-        return new SonarPanelProductionTask(this, weatherEntity);
+    public PowerProductionTask<SolarPanel> createTask(WeatherEntity weatherEntity) {
+        return new SolarPanelProductionTask(this, weatherEntity);
     }
 }
