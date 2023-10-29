@@ -3,6 +3,7 @@ package com.electricity.project.simulationmodule.domains.windturbine.entity;
 import com.electricity.project.simulationmodule.domains.power.entity.PowerStation;
 import com.electricity.project.simulationmodule.domains.powerproduction.entity.PowerProductionTask;
 import com.electricity.project.simulationmodule.domains.powerproduction.entity.WindTurbineProductionTask;
+import com.electricity.project.simulationmodule.domains.weather.entity.WeatherEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
@@ -33,7 +34,7 @@ public class WindTurbine extends PowerStation {
 
 
     @Override
-    public PowerProductionTask<WindTurbine> createTask() {
-        return new WindTurbineProductionTask(this);
+    public PowerProductionTask<WindTurbine> createTask(WeatherEntity weatherEntity) {
+        return new WindTurbineProductionTask(this, weatherEntity);
     }
 }

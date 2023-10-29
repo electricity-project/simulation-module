@@ -1,7 +1,7 @@
 package com.electricity.project.simulationmodule.domains.powerproduction.control;
 
 import com.electricity.project.simulationmodule.domains.power.control.PowerStationService;
-import com.electricity.project.simulationmodule.domains.powerproduction.exception.WeatherNotFoundException;
+import com.electricity.project.simulationmodule.domains.powerproduction.control.exception.WeatherNotFoundException;
 import com.electricity.project.simulationmodule.domains.weather.WeatherUpdater;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -17,16 +17,16 @@ import java.time.Instant;
 @Component
 public class PowerProductionScheduler {
 
-    private final ThreadPoolTaskScheduler threadPoolTaskScheduler;
+    private final ThreadPoolTaskScheduler taskScheduler;
     private final WeatherUpdater weatherUpdater;
     private final PowerStationService powerStationService;
 
     public PowerProductionScheduler(WeatherUpdater weatherUpdater, PowerStationService powerStationService) {
         this.weatherUpdater = weatherUpdater;
         this.powerStationService = powerStationService;
-        threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
-        threadPoolTaskScheduler.setPoolSize(10);
-        threadPoolTaskScheduler.initialize();
+        taskScheduler = new ThreadPoolTaskScheduler();
+        taskScheduler.setPoolSize(10);
+        taskScheduler.initialize();
     }
 
     @Async
@@ -35,7 +35,7 @@ public class PowerProductionScheduler {
         weatherUpdater.update().ifPresentOrElse(
                 weatherEntity -> powerStationService
                         .getAllEntities()
-                        .forEach(powerStation -> threadPoolTaskScheduler.schedule(powerStation.createTask(), Instant.now())),
+                        .forEach(powerStation -> taskScheduler.schedule(powerStation.createTask(weatherEntity), Instant.now())),
                 () -> {
                     log.error("Cannot find weather data");
                     throw new WeatherNotFoundException();

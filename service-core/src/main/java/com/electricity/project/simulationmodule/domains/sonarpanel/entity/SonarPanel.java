@@ -3,6 +3,7 @@ package com.electricity.project.simulationmodule.domains.sonarpanel.entity;
 import com.electricity.project.simulationmodule.domains.power.entity.PowerStation;
 import com.electricity.project.simulationmodule.domains.powerproduction.entity.PowerProductionTask;
 import com.electricity.project.simulationmodule.domains.powerproduction.entity.SonarPanelProductionTask;
+import com.electricity.project.simulationmodule.domains.weather.entity.WeatherEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
@@ -41,7 +42,7 @@ public class SonarPanel extends PowerStation {
     private double meanPowerCoefficientFactorValue;
 
     @Override
-    public PowerProductionTask<SonarPanel> createTask() {
-        return new SonarPanelProductionTask(this);
+    public PowerProductionTask<SonarPanel> createTask(WeatherEntity weatherEntity) {
+        return new SonarPanelProductionTask(this, weatherEntity);
     }
 }

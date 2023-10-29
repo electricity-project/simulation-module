@@ -2,6 +2,7 @@ package com.electricity.project.simulationmodule.domains.power.entity;
 
 import com.electricity.project.simulationmodule.api.PowerStationState;
 import com.electricity.project.simulationmodule.domains.powerproduction.entity.PowerProductionTask;
+import com.electricity.project.simulationmodule.domains.weather.entity.WeatherEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,6 +35,6 @@ public abstract class PowerStation {
 
     private LocalDateTime createdTime;
 
-    public abstract PowerProductionTask<? extends PowerStation> createTask();
+    public abstract PowerProductionTask<? extends PowerStation> createTask(WeatherEntity weatherEntity);
 
 }
