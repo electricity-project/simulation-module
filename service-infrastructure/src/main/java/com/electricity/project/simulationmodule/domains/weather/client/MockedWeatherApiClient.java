@@ -48,7 +48,7 @@ public class MockedWeatherApiClient implements WeatherClient {
                             "code": 1003
                         },
                         "wind_mph": 9.4,
-                        "wind_kph": 15.1,
+                        "wind_kph": 20.1,
                         "wind_degree": 270,
                         "wind_dir": "W",
                         "pressure_mb": 996.0,
