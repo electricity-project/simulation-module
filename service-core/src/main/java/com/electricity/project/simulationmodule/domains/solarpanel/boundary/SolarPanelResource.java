@@ -36,7 +36,7 @@ public class SolarPanelResource {
 
     @PostMapping
     public ResponseEntity<SolarPanelDTO> createNewSolarPanel(@RequestBody SolarPanelDTO solarPanelDTO, UriComponentsBuilder uriBuilder) {
-        SolarPanel connectedSolarPanel = solarPanelService.connectWithNewSolarPanel(solarPanelDTO);
+        SolarPanel connectedSolarPanel = solarPanelService.createNewSolarPanel(solarPanelDTO);
         URI location = uriBuilder.path("/{id}")
                 .buildAndExpand(connectedSolarPanel.getId())
                 .toUri();

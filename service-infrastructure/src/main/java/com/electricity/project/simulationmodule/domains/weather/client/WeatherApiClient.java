@@ -4,6 +4,7 @@ import com.electricity.project.simulationmodule.domains.weather.data.Coordinates
 import com.electricity.project.simulationmodule.domains.weather.data.WeatherApiResponseWrapper;
 import com.electricity.project.simulationmodule.domains.weather.data.WeatherResponseAbstract;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.lang.NonNull;
@@ -17,6 +18,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 @Component
+@Profile("default")
 public class WeatherApiClient implements WeatherClient {
     @Value("${api.weather.key}")
     private String apiKey;

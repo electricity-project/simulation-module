@@ -5,6 +5,5 @@ import com.electricity.project.simulationmodule.domains.weather.data.WeatherResp
 import org.springframework.lang.NonNull;
 
 public interface WeatherClient {
-
     WeatherResponseAbstract getRealTimeWeather(@NonNull Coordinates coordinates);
 }

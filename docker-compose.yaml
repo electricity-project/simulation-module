@@ -1,0 +1,33 @@
+name: simulation-system
+
+services:
+#  rabbitmq:
+#    image: 'rabbitmq:latest'
+#    environment:
+#      - 'RABBITMQ_DEFAULT_PASS=secret'
+#      - 'RABBITMQ_DEFAULT_USER=myuser'
+#    ports:
+#      - '5672'
+
+  simulation-db:
+    image: postgres:latest
+    healthcheck:
+      test: exit 0
+    environment:
+      POSTGRES_USER: simulation-user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: simulation-db
+
+  simulation-module:
+    depends_on:
+      simulation-db:
+        condition: service_healthy
+    build:
+      context: .
+    environment:
+      WEATHER_API_KEY: ${WEATHER_API_KEY}
+      SIMULATION_DB: simulation-db
+      SIMULATION_DB_USER: simulation-user
+      SIMULATION_DB_PASSWORD: password
+    ports:
+      - 8080:8080

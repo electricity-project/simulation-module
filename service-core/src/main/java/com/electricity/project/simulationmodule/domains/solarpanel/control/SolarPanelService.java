@@ -3,13 +3,13 @@ package com.electricity.project.simulationmodule.domains.solarpanel.control;
 import com.electricity.project.simulationmodule.api.solarpanel.SolarPanelDTO;
 import com.electricity.project.simulationmodule.domains.solarpanel.control.exception.SolarPanelNotExistsException;
 import com.electricity.project.simulationmodule.domains.solarpanel.entity.SolarPanel;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SolarPanelService {
 
     private final SolarPanelRepository solarPanelRepository;
@@ -18,12 +18,12 @@ public class SolarPanelService {
         return solarPanelRepository.findById(id).orElseThrow(() -> new SolarPanelNotExistsException(id));
     }
 
-    public SolarPanel connectWithNewSolarPanel(SolarPanelDTO solarPanelDTO) {
+    public SolarPanel createNewSolarPanel(SolarPanelDTO solarPanelDTO) {
         SolarPanel solarPanel = SolarPanelMapper.mapToEntity(solarPanelDTO);
         return solarPanelRepository.save(solarPanel);
     }
 
-    public List<SolarPanel> connectWithNewSolarPanels(List<SolarPanelDTO> solarPanels) {
+    public List<SolarPanel> createNewSolarPanels(List<SolarPanelDTO> solarPanels) {
         return solarPanelRepository.saveAll(solarPanels.stream().map(SolarPanelMapper::mapToEntity).toList());
     }
 

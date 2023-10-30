@@ -78,6 +78,6 @@ public class InitializeDatabase {
             solarPanels.add(solarPanelBuilder.name("SolarPanel-" + i).build());
         }
 
-        solarPanelService.connectWithNewSolarPanels(solarPanels);
+        solarPanelService.createNewSolarPanels(solarPanels);
     }
 }
