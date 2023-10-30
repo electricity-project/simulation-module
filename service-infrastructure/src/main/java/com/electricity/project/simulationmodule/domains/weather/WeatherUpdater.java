@@ -28,7 +28,8 @@ public class WeatherUpdater {
         Optional<WeatherEntity> weatherEntity;
         try {
             weatherEntity = Optional.of(WeatherMapper.mapToEntity(weatherResponseFuture.get(35, TimeUnit.SECONDS)));
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            weatherEntity.ifPresent(weatherService::addNewWeather);
+        } catch (Exception e) {
             log.error("Getting realtime weather error", e);
             weatherEntity = weatherService.getLastWeather();
         }

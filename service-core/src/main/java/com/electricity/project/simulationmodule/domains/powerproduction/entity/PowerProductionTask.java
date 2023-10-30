@@ -1,5 +1,8 @@
 package com.electricity.project.simulationmodule.domains.powerproduction.entity;
 
+import com.electricity.project.simulationmodule.api.PowerStationState;
+import com.electricity.project.simulationmodule.configuration.Randomizer;
+import com.electricity.project.simulationmodule.domains.power.control.PowerStationService;
 import com.electricity.project.simulationmodule.domains.power.entity.PowerStation;
 import com.electricity.project.simulationmodule.domains.weather.entity.WeatherEntity;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +16,15 @@ public abstract class PowerProductionTask<T extends PowerStation> implements Run
 
     protected WeatherEntity weather;
 
+    protected PowerStationService powerStationService;
+
     @Override
     public void run() {
+        if (getRandomEvent()) {
+            powerStation.setState(PowerStationState.DAMAGED);
+            powerStationService.save(powerStation);
+        }
+
         switch (powerStation.getState()) {
             case WORKING -> {
                 double producedPower = countPowerProduction();
@@ -30,6 +40,12 @@ public abstract class PowerProductionTask<T extends PowerStation> implements Run
 
     protected double convertFromWsToMWh(double powerProductionInWatsPerSecond) {
         return powerProductionInWatsPerSecond * 60 * 60 / 1000000;
+    }
+
+    protected boolean getRandomEvent() {
+        // TODO
+        // return (LocalDateTime.now().until(powerStation.getCreatedTime(), ChronoUnit.MILLIS)) < new Random().nextDouble();
+        return Randomizer.getInstance().nextBoolean();
     }
 
 }

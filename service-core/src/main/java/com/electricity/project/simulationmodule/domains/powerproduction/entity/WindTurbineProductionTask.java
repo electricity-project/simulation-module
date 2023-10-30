@@ -1,5 +1,6 @@
 package com.electricity.project.simulationmodule.domains.powerproduction.entity;
 
+import com.electricity.project.simulationmodule.domains.power.control.PowerStationService;
 import com.electricity.project.simulationmodule.domains.weather.entity.WeatherEntity;
 import com.electricity.project.simulationmodule.domains.windturbine.entity.WindTurbine;
 
@@ -8,9 +9,10 @@ public class WindTurbineProductionTask extends PowerProductionTask<WindTurbine> 
     private static final double RD = 287.058;
     private static final double RV = 461.495;
 
-    public WindTurbineProductionTask(WindTurbine powerStation, WeatherEntity weather) {
+    public WindTurbineProductionTask(WindTurbine powerStation, WeatherEntity weather, PowerStationService powerStationService) {
         this.powerStation = powerStation;
         this.weather = weather;
+        this.powerStationService = powerStationService;
     }
 
     @Override

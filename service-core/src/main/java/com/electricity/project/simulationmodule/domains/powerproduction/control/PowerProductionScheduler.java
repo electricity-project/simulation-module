@@ -31,16 +31,15 @@ public class PowerProductionScheduler {
 
     @Async
     @Scheduled(/*fixedRate = 1, timeUnit = TimeUnit.MINUTES,*/ fixedRateString = "${fixedRate.in.milliseconds}")
-    public void countPowerForPowerStations() {
+    public void countPowerAndStateForPowerStations() {
         weatherUpdater.update().ifPresentOrElse(
                 weatherEntity -> powerStationService
                         .getAllEntities()
-                        .forEach(powerStation -> taskScheduler.schedule(powerStation.createTask(weatherEntity), Instant.now())),
+                        .forEach(powerStation -> taskScheduler
+                                .schedule(powerStation.createTask(weatherEntity, powerStationService), Instant.now())),
                 () -> {
                     log.error("Cannot find weather data");
                     throw new WeatherNotFoundException();
-                }
-        );
-
+                });
     }
 }

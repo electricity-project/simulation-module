@@ -1,5 +1,6 @@
 package com.electricity.project.simulationmodule.domains.windturbine.entity;
 
+import com.electricity.project.simulationmodule.domains.power.control.PowerStationService;
 import com.electricity.project.simulationmodule.domains.power.entity.PowerStation;
 import com.electricity.project.simulationmodule.domains.powerproduction.entity.PowerProductionTask;
 import com.electricity.project.simulationmodule.domains.powerproduction.entity.WindTurbineProductionTask;
@@ -34,7 +35,7 @@ public class WindTurbine extends PowerStation {
 
 
     @Override
-    public PowerProductionTask<WindTurbine> createTask(WeatherEntity weatherEntity) {
-        return new WindTurbineProductionTask(this, weatherEntity);
+    public PowerProductionTask<WindTurbine> createTask(WeatherEntity weatherEntity, PowerStationService powerStationService) {
+        return new WindTurbineProductionTask(this, weatherEntity, powerStationService);
     }
 }

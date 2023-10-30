@@ -1,5 +1,6 @@
 package com.electricity.project.simulationmodule.domains.solarpanel.entity;
 
+import com.electricity.project.simulationmodule.domains.power.control.PowerStationService;
 import com.electricity.project.simulationmodule.domains.power.entity.PowerStation;
 import com.electricity.project.simulationmodule.domains.powerproduction.entity.PowerProductionTask;
 import com.electricity.project.simulationmodule.domains.powerproduction.entity.SolarPanelProductionTask;
@@ -42,7 +43,7 @@ public class SolarPanel extends PowerStation {
     private double meanPowerCoefficientFactorValue;
 
     @Override
-    public PowerProductionTask<SolarPanel> createTask(WeatherEntity weatherEntity) {
-        return new SolarPanelProductionTask(this, weatherEntity);
+    public PowerProductionTask<SolarPanel> createTask(WeatherEntity weatherEntity, PowerStationService powerStationService) {
+        return new SolarPanelProductionTask(this, weatherEntity, powerStationService);
     }
 }
