@@ -26,8 +26,8 @@ services:
       context: .
     environment:
       WEATHER_API_KEY: ${WEATHER_API_KEY}
-      SIMULATION_DB: simulation-db
-      SIMULATION_DB_USER: simulation-user
-      SIMULATION_DB_PASSWORD: password
+      SPRING_DATASOURCE_URL: jdbc:postgresql://simulation-db:5432/simulation-db
+      SPRING_DATASOURCE_USERNAME: simulation-user
+      SPRING_DATASOURCE_PASSWORD: password
     ports:
       - 8080:8080
