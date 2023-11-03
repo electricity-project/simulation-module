@@ -1,8 +1,9 @@
 package com.electricity.project.simulationmodule.domains.windturbine.entity;
 
-import com.electricity.project.simulationmodule.domains.power.control.PowerStationService;
 import com.electricity.project.simulationmodule.domains.power.entity.PowerStation;
+import com.electricity.project.simulationmodule.domains.power.entity.PowerStationType;
 import com.electricity.project.simulationmodule.domains.powerproduction.entity.PowerProductionTask;
+import com.electricity.project.simulationmodule.domains.powerproduction.entity.PowerProductionTaskUtil;
 import com.electricity.project.simulationmodule.domains.powerproduction.entity.WindTurbineProductionTask;
 import com.electricity.project.simulationmodule.domains.weather.entity.WeatherEntity;
 import jakarta.persistence.Column;
@@ -35,7 +36,12 @@ public class WindTurbine extends PowerStation {
 
 
     @Override
-    public PowerProductionTask<WindTurbine> createTask(WeatherEntity weatherEntity, PowerStationService powerStationService) {
-        return new WindTurbineProductionTask(this, weatherEntity, powerStationService);
+    public PowerProductionTask<WindTurbine> createTask(WeatherEntity weatherEntity, PowerProductionTaskUtil util) {
+        return new WindTurbineProductionTask(this, weatherEntity, util);
+    }
+
+    @Override
+    public PowerStationType getType() {
+        return PowerStationType.WIND_TURBINE;
     }
 }

@@ -1,20 +1,24 @@
 package com.electricity.project.simulationmodule.domains.powerproduction.entity;
 
-import com.electricity.project.simulationmodule.domains.power.control.PowerStationService;
+import com.electricity.project.simulationmodule.configuration.Randomizer;
 import com.electricity.project.simulationmodule.domains.solarpanel.entity.SolarPanel;
 import com.electricity.project.simulationmodule.domains.weather.entity.WeatherEntity;
 
 public class SolarPanelProductionTask extends PowerProductionTask<SolarPanel> {
 
-    public SolarPanelProductionTask(SolarPanel powerStation, WeatherEntity weather, PowerStationService powerStationService) {
-        this.powerStation = powerStation;
-        this.weather = weather;
-        this.powerStationService = powerStationService;
+    public SolarPanelProductionTask(SolarPanel powerStation, WeatherEntity weather, PowerProductionTaskUtil util) {
+        super(powerStation, weather, util);
     }
 
     @Override
-    protected double countPowerProduction() {
+    protected double calculatePowerProduction() {
         // TODO solar panel power production formula
         return Math.random() * powerStation.getMaxPower();
+    }
+
+    @Override
+    protected boolean getRandomEvent() {
+        // TODO solar panel random event
+        return Randomizer.getInstance().nextDouble() < 0.0000001;
     }
 }

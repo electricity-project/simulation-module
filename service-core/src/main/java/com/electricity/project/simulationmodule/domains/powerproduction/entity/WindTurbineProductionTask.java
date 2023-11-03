@@ -1,6 +1,6 @@
 package com.electricity.project.simulationmodule.domains.powerproduction.entity;
 
-import com.electricity.project.simulationmodule.domains.power.control.PowerStationService;
+import com.electricity.project.simulationmodule.configuration.Randomizer;
 import com.electricity.project.simulationmodule.domains.weather.entity.WeatherEntity;
 import com.electricity.project.simulationmodule.domains.windturbine.entity.WindTurbine;
 
@@ -9,15 +9,19 @@ public class WindTurbineProductionTask extends PowerProductionTask<WindTurbine> 
     private static final double RD = 287.058;
     private static final double RV = 461.495;
 
-    public WindTurbineProductionTask(WindTurbine powerStation, WeatherEntity weather, PowerStationService powerStationService) {
-        this.powerStation = powerStation;
-        this.weather = weather;
-        this.powerStationService = powerStationService;
+    public WindTurbineProductionTask(WindTurbine powerStation, WeatherEntity weather, PowerProductionTaskUtil util) {
+        super(powerStation, weather, util);
     }
 
     @Override
-    protected double countPowerProduction() {
+    protected double calculatePowerProduction() {
         return convertFromWsToMWh(countPowerProductionPerSecond());
+    }
+
+    @Override
+    protected boolean getRandomEvent() {
+        // TODO wind turbine random event
+        return Randomizer.getInstance().nextDouble() < 0.0000001;
     }
 
     private double countPowerProductionPerSecond() {

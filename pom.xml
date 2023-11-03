@@ -20,6 +20,7 @@
         <module>service-core</module>
         <module>service-api</module>
         <module>service-infrastructure</module>
+        <module>simulation-mqtt-consumer</module>
     </modules>
 
     <dependencyManagement>
@@ -136,6 +137,11 @@
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jsr310</artifactId>
                 <version>${fasterxml.jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.integration</groupId>
+                <artifactId>spring-integration-mqtt</artifactId>
+                <version>6.1.4</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

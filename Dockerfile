@@ -15,5 +15,4 @@ RUN --mount=type=cache,target=/root/.m2 ./mvnw -f $HOME/pom.xml clean package -D
 FROM eclipse-temurin:21-jre-jammy
 ARG JAR_FILE=/usr/app/service-app/target/*.jar
 COPY --from=build $JAR_FILE /app/simulation-module.jar
-EXPOSE 8080
 ENTRYPOINT java -jar /app/simulation-module.jar

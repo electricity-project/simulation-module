@@ -1,7 +1,7 @@
 package com.electricity.project.simulationmodule.domains.powerproduction.control;
 
-import com.electricity.project.simulationmodule.domains.power.control.PowerStationService;
 import com.electricity.project.simulationmodule.domains.powerproduction.control.exception.WeatherNotFoundException;
+import com.electricity.project.simulationmodule.domains.powerproduction.entity.PowerProductionTaskUtil;
 import com.electricity.project.simulationmodule.domains.weather.WeatherUpdater;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -19,11 +19,11 @@ public class PowerProductionScheduler {
 
     private final ThreadPoolTaskScheduler taskScheduler;
     private final WeatherUpdater weatherUpdater;
-    private final PowerStationService powerStationService;
+    private final PowerProductionTaskUtil util;
 
-    public PowerProductionScheduler(WeatherUpdater weatherUpdater, PowerStationService powerStationService) {
+    public PowerProductionScheduler(WeatherUpdater weatherUpdater, PowerProductionTaskUtil util) {
         this.weatherUpdater = weatherUpdater;
-        this.powerStationService = powerStationService;
+        this.util = util;
         taskScheduler = new ThreadPoolTaskScheduler();
         taskScheduler.setPoolSize(10);
         taskScheduler.initialize();
@@ -33,10 +33,10 @@ public class PowerProductionScheduler {
     @Scheduled(/*fixedRate = 1, timeUnit = TimeUnit.MINUTES,*/ fixedRateString = "${fixedRate.in.milliseconds}")
     public void countPowerAndStateForPowerStations() {
         weatherUpdater.update().ifPresentOrElse(
-                weatherEntity -> powerStationService
+                weatherEntity -> util.getPowerStationService()
                         .getAllEntities()
-                        .forEach(powerStation -> taskScheduler
-                                .schedule(powerStation.createTask(weatherEntity, powerStationService), Instant.now())),
+                        .forEach(powerStation ->
+                                taskScheduler.schedule(powerStation.createTask(weatherEntity, util), Instant.now())),
                 () -> {
                     log.error("Cannot find weather data");
                     throw new WeatherNotFoundException();

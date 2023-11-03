@@ -1,0 +1,32 @@
+services:
+  rabbitmq:
+    build:
+      dockerfile_inline: |
+        FROM rabbitmq:3-management
+        RUN rabbitmq-plugins enable --offline rabbitmq_mqtt
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmq-user
+      RABBITMQ_DEFAULT_PASS: password
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    ports:
+      - 1883:1883
+
+  simulation-mqtt-consumer:
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    build:
+      dockerfile: simulation-mqtt-consumer/Dockerfile
+    environment:
+      MQTT_CLIENT_USERNAME: rabbitmq-user
+      MQTT_CLIENT_PASSWORD: password
+      MQTT_BROKER_URL: tcp://rabbitmq:1883
+
+  simulation-module:
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
