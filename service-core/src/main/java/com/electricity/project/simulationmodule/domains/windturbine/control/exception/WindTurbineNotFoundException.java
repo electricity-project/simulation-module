@@ -1,6 +1,8 @@
 package com.electricity.project.simulationmodule.domains.windturbine.control.exception;
 
-public class WindTurbineNotFoundException extends RuntimeException {
+import com.electricity.project.simulationmodule.domains.power.control.exception.PowerStationNotExistsException;
+
+public class WindTurbineNotFoundException extends PowerStationNotExistsException {
     public WindTurbineNotFoundException(long id) {
         super("Wind turbine with id = %d not found".formatted(id));
     }
