@@ -22,7 +22,7 @@ public abstract class PowerProductionTask<T extends PowerStation> implements Run
     private final ObjectMapper objectMapper;
     private final int fixedRateMs;
 
-    public PowerProductionTask(T powerStation, WeatherEntity weather, PowerProductionTaskUtil util) {
+    protected PowerProductionTask(T powerStation, WeatherEntity weather, PowerProductionTaskUtil util) {
         this.powerStation = powerStation;
         this.weather = weather;
         this.powerStationService = util.getPowerStationService();
@@ -53,6 +53,7 @@ public abstract class PowerProductionTask<T extends PowerStation> implements Run
             if (getRandomEvent()) {
                 powerStation.setState(PowerStationState.DAMAGED);
                 powerStationService.save(powerStation);
+                break;
             }
         }
     }
@@ -86,7 +87,7 @@ public abstract class PowerProductionTask<T extends PowerStation> implements Run
         try {
             powerProductionGateway.sendToMqtt(objectMapper.writeValueAsString(powerProductionMessage));
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            log.error("Error occurred while parsing power production message: {} to string", powerProductionMessage.toString(), e);
         }
     }
 }
