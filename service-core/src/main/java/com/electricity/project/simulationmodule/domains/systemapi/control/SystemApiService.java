@@ -32,7 +32,7 @@ public class SystemApiService {
 
     public void startPowerStation(String ipv4Address) {
         PowerStation powerStation = getPowerStationByIp(ipv4Address);
-        if (powerStation.getState() != PowerStationState.STOPPED) {
+        if (powerStation.getState() != PowerStationState.STOPPED && powerStation.getState() != PowerStationState.WORKING) {
             throw new IncorrectStateForOperationException(powerStation.getState(), "START");
         }
         powerStation.setState(PowerStationState.WORKING);
@@ -41,7 +41,7 @@ public class SystemApiService {
 
     public void stopPowerStation(String ipv4Address) {
         PowerStation powerStation = getPowerStationByIp(ipv4Address);
-        if (powerStation.getState() != PowerStationState.WORKING) {
+        if (powerStation.getState() != PowerStationState.WORKING && powerStation.getState() != PowerStationState.STOPPED) {
             throw new IncorrectStateForOperationException(powerStation.getState(), "STOP");
         }
         powerStation.setState(PowerStationState.STOPPED);
