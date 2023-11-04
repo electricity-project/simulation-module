@@ -1,6 +1,6 @@
 package com.electricity.project.simulationmodule.api.windturbine;
 
-import com.electricity.project.simulationmodule.api.PowerStationDTO;
+import com.electricity.project.simulationmodule.api.powerstation.PowerStationDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
