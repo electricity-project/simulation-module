@@ -21,11 +21,8 @@ public interface PowerStationDTO {
     @JsonProperty(value = "id")
     Optional<Long> getId();
 
-    @JsonProperty(value = "name", required = true)
-    String getName();
-
-    @JsonProperty(value = "ipv4", required = true)
-    String getIpv4Address();
+    @JsonProperty(value = "ipv6", required = true)
+    String getIpv6Address();
 
     @JsonProperty(value = "state", required = true)
     PowerStationState getState();

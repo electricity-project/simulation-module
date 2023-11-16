@@ -23,8 +23,8 @@ public interface SolarPanelDTO extends PowerStationDTO {
     double getOptimalTemperature();
 
     @JsonProperty(value = "insolationFactorWeights", required = true)
-    ImmutableInsolationFactorWeightsDTO getInsolationFactorWeights();
+    InsolationFactorWeightsDTO getInsolationFactorWeights();
 
     @JsonProperty(value = "powerCoefficientFactor", required = true)
-    ImmutablePowerCoefficientFactorDTO getPowerCoefficientFactor();
+    PowerCoefficientFactorDTO getPowerCoefficientFactor();
 }

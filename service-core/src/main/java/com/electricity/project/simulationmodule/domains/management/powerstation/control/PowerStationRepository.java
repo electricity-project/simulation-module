@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface PowerStationRepository extends JpaRepository<PowerStation, Long> {
-    Optional<PowerStation> findFirstByIpv4Address(String ipv4Address);
+    Optional<PowerStation> findFirstByIpv6Address(String ipv6Address);
 }

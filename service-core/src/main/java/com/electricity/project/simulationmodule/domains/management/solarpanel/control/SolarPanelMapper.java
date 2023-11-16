@@ -1,8 +1,7 @@
 package com.electricity.project.simulationmodule.domains.management.solarpanel.control;
 
-import com.electricity.project.simulationmodule.api.solarpanel.ImmutableInsolationFactorWeightsDTO;
-import com.electricity.project.simulationmodule.api.solarpanel.ImmutablePowerCoefficientFactorDTO;
-import com.electricity.project.simulationmodule.api.solarpanel.ImmutableSolarPanelDTO;
+import com.electricity.project.simulationmodule.api.solarpanel.InsolationFactorWeightsDTO;
+import com.electricity.project.simulationmodule.api.solarpanel.PowerCoefficientFactorDTO;
 import com.electricity.project.simulationmodule.api.solarpanel.SolarPanelDTO;
 import com.electricity.project.simulationmodule.domains.management.solarpanel.entity.SolarPanel;
 import lombok.AccessLevel;
@@ -11,12 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SolarPanelMapper {
 
-    public static SolarPanel mapToEntity(ImmutableSolarPanelDTO solarPanelDTO) {
+    public static SolarPanel mapToEntity(SolarPanelDTO solarPanelDTO) {
         return SolarPanel.builder()
                 .id(solarPanelDTO.getId().orElse(-1L))
-                .name(solarPanelDTO.getName())
                 .state(solarPanelDTO.getState())
-                .ipv4Address(solarPanelDTO.getIpv4Address())
+                .ipv6Address(solarPanelDTO.getIpv6Address())
                 .creationTime(solarPanelDTO.getCreationTime())
                 .isConnected(solarPanelDTO.isConnected())
                 .maxPower(solarPanelDTO.getMaxPower())
@@ -29,22 +27,21 @@ public final class SolarPanelMapper {
                 .build();
     }
 
-    public static ImmutableSolarPanelDTO mapToDTO(SolarPanel solarPanel){
+    public static SolarPanelDTO mapToDTO(SolarPanel solarPanel){
         return SolarPanelDTO.builder()
                 .id(solarPanel.getId())
-                .name(solarPanel.getName())
-                .ipv4Address(solarPanel.getIpv4Address())
+                .ipv6Address(solarPanel.getIpv6Address())
                 .state(solarPanel.getState())
                 .creationTime(solarPanel.getCreationTime())
                 .isConnected(solarPanel.isConnected())
                 .maxPower(solarPanel.getMaxPower())
                 .optimalTemperature(solarPanel.getOptimalTemperature())
-                .powerCoefficientFactor(ImmutablePowerCoefficientFactorDTO.builder()
+                .powerCoefficientFactor(PowerCoefficientFactorDTO.builder()
                         .minValue(solarPanel.getMinPowerCoefficientFactorValue())
                         .maxValue(solarPanel.getMaxPowerCoefficientFactorValue())
                         .meanValue(solarPanel.getMeanPowerCoefficientFactorValue())
                         .build())
-                .insolationFactorWeights(ImmutableInsolationFactorWeightsDTO.builder()
+                .insolationFactorWeights(InsolationFactorWeightsDTO.builder()
                         .zenithFactorWeight(solarPanel.getZenithFactorWeight())
                         .cloudFactorWeight(solarPanel.getCloudFactorWeight())
                         .build())

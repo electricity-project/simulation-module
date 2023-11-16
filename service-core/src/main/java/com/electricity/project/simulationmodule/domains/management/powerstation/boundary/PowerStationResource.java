@@ -1,11 +1,11 @@
 package com.electricity.project.simulationmodule.domains.management.powerstation.boundary;
 
-import com.electricity.project.simulationmodule.api.error.ImmutableErrorDTO;
-import com.electricity.project.simulationmodule.api.maintenance.ImmutableMaintenanceEndTimeDTO;
-import com.electricity.project.simulationmodule.api.powerstation.ImmutablePowerStationDTO;
+import com.electricity.project.simulationmodule.api.error.ErrorDTO;
+import com.electricity.project.simulationmodule.api.maintenance.MaintenanceEndTimeDTO;
+import com.electricity.project.simulationmodule.api.powerstation.PowerStationDTO;
 import com.electricity.project.simulationmodule.domains.management.powerstation.control.MaintenanceService;
-import com.electricity.project.simulationmodule.domains.management.powerstation.control.PowerStationService;
 import com.electricity.project.simulationmodule.domains.management.powerstation.control.PowerStationMapper;
+import com.electricity.project.simulationmodule.domains.management.powerstation.control.PowerStationService;
 import com.electricity.project.simulationmodule.domains.management.powerstation.control.exception.PowerStationAlreadyDamagedException;
 import com.electricity.project.simulationmodule.domains.management.powerstation.control.exception.PowerStationAlreadyInMaintenanceException;
 import com.electricity.project.simulationmodule.domains.management.powerstation.control.exception.PowerStationNotExistsException;
@@ -27,14 +27,14 @@ public class PowerStationResource {
     private final MaintenanceService maintenanceService;
 
     @GetMapping
-    public ResponseEntity<List<ImmutablePowerStationDTO>> getAllPowerStations() {
+    public ResponseEntity<List<PowerStationDTO>> getAllPowerStations() {
         return ResponseEntity.ok(powerStationService.getAllEntities().stream()
                 .map(PowerStationMapper::mapToDTO)
                 .toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ImmutablePowerStationDTO> getPowerStation(@PathVariable("id") long id) {
+    public ResponseEntity<PowerStationDTO> getPowerStation(@PathVariable("id") long id) {
         return ResponseEntity.ok(PowerStationMapper.mapToDTO(powerStationService.getById(id)));
     }
 
@@ -45,9 +45,9 @@ public class PowerStationResource {
     }
 
     @GetMapping("/maintenance")
-    public ResponseEntity<ImmutableMaintenanceEndTimeDTO> startMaintenance(@RequestParam long id, @RequestParam Optional<Long> durationMs) {
+    public ResponseEntity<MaintenanceEndTimeDTO> startMaintenance(@RequestParam long id, @RequestParam Optional<Long> durationMs) {
         ZonedDateTime endTime = maintenanceService.startMaintenance(id, durationMs);
-        return ResponseEntity.ok(ImmutableMaintenanceEndTimeDTO.builder().endTime(endTime).build());
+        return ResponseEntity.ok(MaintenanceEndTimeDTO.builder().endTime(endTime).build());
     }
 
     @ExceptionHandler(PowerStationNotExistsException.class)
@@ -57,14 +57,14 @@ public class PowerStationResource {
     }
 
     @ExceptionHandler(PowerStationAlreadyDamagedException.class)
-    private ResponseEntity<ImmutableErrorDTO> handlePowerStationAlreadyDamagedException(PowerStationAlreadyDamagedException exception) {
+    private ResponseEntity<ErrorDTO> handlePowerStationAlreadyDamagedException(PowerStationAlreadyDamagedException exception) {
         log.error("Power station is damaged", exception);
-        return ResponseEntity.badRequest().body(ImmutableErrorDTO.builder().error(exception.getMessage()).build());
+        return ResponseEntity.badRequest().body(ErrorDTO.builder().error(exception.getMessage()).build());
     }
 
     @ExceptionHandler(PowerStationAlreadyInMaintenanceException.class)
-    private ResponseEntity<ImmutableErrorDTO> handlePowerStationAlreadyInMaintenanceException(PowerStationAlreadyInMaintenanceException exception) {
+    private ResponseEntity<ErrorDTO> handlePowerStationAlreadyInMaintenanceException(PowerStationAlreadyInMaintenanceException exception) {
         log.error("Power station is in maintenance mode", exception);
-        return ResponseEntity.badRequest().body(ImmutableErrorDTO.builder().error(exception.getMessage()).build());
+        return ResponseEntity.badRequest().body(ErrorDTO.builder().error(exception.getMessage()).build());
     }
 }

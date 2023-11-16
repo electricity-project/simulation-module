@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.immutables.value.Value;
 
+import java.util.Optional;
+
 @Value.Immutable
 @Value.Style()
 @JsonSerialize(as = ImmutableWindTurbineDTO.class)
@@ -27,4 +29,7 @@ public interface WindTurbineDTO extends PowerStationDTO {
 
     @JsonProperty(value = "powerCoefficient", required = true)
     Long getPowerCoefficient();
+
+    @JsonProperty(value = "maxPower")
+    Optional<Double> getMaxPower();
 }

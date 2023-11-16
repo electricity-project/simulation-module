@@ -9,7 +9,7 @@ public class PowerStationNotExistsException extends RuntimeException {
         super("Power station with id = %d not exists".formatted(id));
     }
 
-    public static PowerStationNotExistsException fromIpv4Address(String ipv4Address) {
-        return new PowerStationNotExistsException("Power station with ipv4Address = %s not exists".formatted(ipv4Address));
+    public static PowerStationNotExistsException fromIpv6Address(String ipv6Address) {
+        return new PowerStationNotExistsException("Power station with ipv6Address = %s not exists".formatted(ipv6Address));
     }
 }

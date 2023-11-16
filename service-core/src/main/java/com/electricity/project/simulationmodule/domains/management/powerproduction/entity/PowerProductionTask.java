@@ -9,7 +9,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @Slf4j
@@ -66,22 +65,19 @@ public abstract class PowerProductionTask<T extends PowerStation> implements Run
 
     private PowerProductionMessage createPowerProductionMessage(double powerProduction) {
         return PowerProductionMessage.builder()
-                .id(powerStation.getId().toString())
-                .ipv4Address(powerStation.getIpv4Address())
-                .timestamp(ZonedDateTime.now())
-                .power(powerProduction)
+                .ipv6Address(powerStation.getIpv6Address())
                 .state(powerStation.getState())
-                .type(powerStation.getType())
-                .createdTime(powerStation.getCreationTime().atZone(ZoneId.systemDefault()))
+                .power(powerProduction)
+                .timestamp(ZonedDateTime.now())
                 .build();
     }
 
     private void logPowerProductionState(double powerProduction) {
         switch (powerStation.getState()) {
             case WORKING ->
-                    log.info("Power station: {}, state: {}, produced: {} MWh", powerStation.getName(), powerStation.getState(), powerProduction);
+                    log.info("Power station: {}, state: {}, produced: {} MWh", powerStation.getIpv6Address(), powerStation.getState(), powerProduction);
             case DAMAGED, STOPPED ->
-                    log.info("Power station: {}, not working, state: {}", powerStation.getName(), powerStation.getState());
+                    log.info("Power station: {}, not working, state: {}", powerStation.getIpv6Address(), powerStation.getState());
         }
     }
 

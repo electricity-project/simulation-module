@@ -5,7 +5,10 @@ import com.electricity.project.simulationmodule.domains.management.powerproducti
 import com.electricity.project.simulationmodule.domains.management.powerproduction.entity.PowerProductionTaskUtil;
 import com.electricity.project.simulationmodule.domains.weather.entity.WeatherEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
@@ -23,11 +26,8 @@ public abstract class PowerStation {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
-
-    @Column(length = 15, unique = true, nullable = false)
-    private String ipv4Address;
+    @Column(length = 39, unique = true, nullable = false)
+    private String ipv6Address;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -37,9 +37,10 @@ public abstract class PowerStation {
     private LocalDateTime creationTime;
 
     @Column(nullable = false)
+    private double maxPower;
+
+    @Column(nullable = false)
     private boolean isConnected;
 
     public abstract PowerProductionTask<? extends PowerStation> createTask(WeatherEntity weatherEntity, PowerProductionTaskUtil util);
-
-    public abstract PowerStationType getType();
 }
