@@ -20,14 +20,16 @@ public abstract class PowerProductionTask<T extends PowerStation> implements Run
     private final PowerProductionGateway powerProductionGateway;
     private final ObjectMapper objectMapper;
     private final int fixedRateMs;
+    private final ZonedDateTime messageTimestamp;
 
-    protected PowerProductionTask(T powerStation, WeatherEntity weather, PowerProductionTaskUtil util) {
+    protected PowerProductionTask(T powerStation, WeatherEntity weather, PowerProductionTaskUtil util, ZonedDateTime messageTimestamp) {
         this.powerStation = powerStation;
         this.weather = weather;
         this.powerStationService = util.getPowerStationService();
         this.powerProductionGateway = util.getPowerProductionGateway();
         this.objectMapper = util.getObjectMapper();
         this.fixedRateMs = util.getFixedRateMs();
+        this.messageTimestamp = messageTimestamp;
     }
 
     protected abstract double calculatePowerProduction();
@@ -68,7 +70,7 @@ public abstract class PowerProductionTask<T extends PowerStation> implements Run
                 .ipv6Address(powerStation.getIpv6Address())
                 .state(powerStation.getState())
                 .power(powerProduction)
-                .timestamp(ZonedDateTime.now())
+                .timestamp(messageTimestamp)
                 .build();
     }
 
@@ -76,7 +78,7 @@ public abstract class PowerProductionTask<T extends PowerStation> implements Run
         switch (powerStation.getState()) {
             case WORKING ->
                     log.info("Power station: {}, state: {}, produced: {} MWh", powerStation.getIpv6Address(), powerStation.getState(), powerProduction);
-            case DAMAGED, STOPPED ->
+            case DAMAGED, STOPPED, MAINTENANCE ->
                     log.info("Power station: {}, not working, state: {}", powerStation.getIpv6Address(), powerStation.getState());
         }
     }

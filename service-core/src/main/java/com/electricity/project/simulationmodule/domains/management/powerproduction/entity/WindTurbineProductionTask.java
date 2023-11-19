@@ -4,13 +4,15 @@ import com.electricity.project.simulationmodule.configuration.Randomizer;
 import com.electricity.project.simulationmodule.domains.weather.entity.WeatherEntity;
 import com.electricity.project.simulationmodule.domains.management.windturbine.entity.WindTurbine;
 
+import java.time.ZonedDateTime;
+
 public class WindTurbineProductionTask extends PowerProductionTask<WindTurbine> {
 
     private static final double RD = 287.058;
     private static final double RV = 461.495;
 
-    public WindTurbineProductionTask(WindTurbine powerStation, WeatherEntity weather, PowerProductionTaskUtil util) {
-        super(powerStation, weather, util);
+    public WindTurbineProductionTask(WindTurbine powerStation, WeatherEntity weather, PowerProductionTaskUtil util, ZonedDateTime messageTimestamp) {
+        super(powerStation, weather, util, messageTimestamp);
     }
 
     @Override

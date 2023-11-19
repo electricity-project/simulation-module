@@ -12,6 +12,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @SuperBuilder
 @AllArgsConstructor
@@ -42,5 +43,5 @@ public abstract class PowerStation {
     @Column(nullable = false)
     private boolean isConnected;
 
-    public abstract PowerProductionTask<? extends PowerStation> createTask(WeatherEntity weatherEntity, PowerProductionTaskUtil util);
+    public abstract PowerProductionTask<? extends PowerStation> createTask(WeatherEntity weatherEntity, PowerProductionTaskUtil util, ZonedDateTime messageTimestamp);
 }

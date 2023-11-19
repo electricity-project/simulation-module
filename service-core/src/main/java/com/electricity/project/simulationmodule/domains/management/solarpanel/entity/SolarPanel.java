@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.time.ZonedDateTime;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,7 +42,7 @@ public class SolarPanel extends PowerStation {
     private double meanPowerCoefficientFactorValue;
 
     @Override
-    public PowerProductionTask<SolarPanel> createTask(WeatherEntity weatherEntity, PowerProductionTaskUtil util) {
-        return new SolarPanelProductionTask(this, weatherEntity, util);
+    public PowerProductionTask<SolarPanel> createTask(WeatherEntity weatherEntity, PowerProductionTaskUtil util, ZonedDateTime messageTimestamp) {
+        return new SolarPanelProductionTask(this, weatherEntity, util, messageTimestamp);
     }
 }

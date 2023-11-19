@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.time.ZonedDateTime;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,7 +36,7 @@ public class WindTurbine extends PowerStation {
     private long powerCoefficient;
 
     @Override
-    public PowerProductionTask<WindTurbine> createTask(WeatherEntity weatherEntity, PowerProductionTaskUtil util) {
-        return new WindTurbineProductionTask(this, weatherEntity, util);
+    public PowerProductionTask<WindTurbine> createTask(WeatherEntity weatherEntity, PowerProductionTaskUtil util, ZonedDateTime messageTimestamp) {
+        return new WindTurbineProductionTask(this, weatherEntity, util, messageTimestamp);
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.time.ZonedDateTime;
 
 @EnableAsync
 @Slf4j
@@ -32,11 +33,12 @@ public class PowerProductionScheduler {
     @Async
     @Scheduled(/*fixedRate = 1, timeUnit = TimeUnit.MINUTES,*/ fixedRateString = "${fixedRate.in.milliseconds}")
     public void countPowerAndStateForPowerStations() {
+        ZonedDateTime messageTimestamp = ZonedDateTime.now();
         weatherUpdater.update().ifPresentOrElse(
                 weatherEntity -> util.getPowerStationService()
                         .getAllEntities()
                         .forEach(powerStation ->
-                                taskScheduler.schedule(powerStation.createTask(weatherEntity, util), Instant.now())),
+                                taskScheduler.schedule(powerStation.createTask(weatherEntity, util, messageTimestamp), Instant.now())),
                 () -> {
                     log.error("Cannot find weather data");
                     throw new WeatherNotFoundException();

@@ -4,10 +4,12 @@ import com.electricity.project.simulationmodule.configuration.Randomizer;
 import com.electricity.project.simulationmodule.domains.management.solarpanel.entity.SolarPanel;
 import com.electricity.project.simulationmodule.domains.weather.entity.WeatherEntity;
 
+import java.time.ZonedDateTime;
+
 public class SolarPanelProductionTask extends PowerProductionTask<SolarPanel> {
 
-    public SolarPanelProductionTask(SolarPanel powerStation, WeatherEntity weather, PowerProductionTaskUtil util) {
-        super(powerStation, weather, util);
+    public SolarPanelProductionTask(SolarPanel powerStation, WeatherEntity weather, PowerProductionTaskUtil util, ZonedDateTime messageTimestamp) {
+        super(powerStation, weather, util, messageTimestamp);
     }
 
     @Override
