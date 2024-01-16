@@ -7,7 +7,7 @@
 
     <parent>
         <groupId>com.electricity.project</groupId>
-        <artifactId>simulatiom-module</artifactId>
+        <artifactId>simulation-module</artifactId>
         <version>0.0.1</version>
     </parent>
 
@@ -21,7 +21,6 @@
         <dependency>
             <groupId>com.electricity.project</groupId>
             <artifactId>service-api</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.electricity.project</groupId>
@@ -38,6 +37,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.seancfoley</groupId>
+            <artifactId>ipaddress</artifactId>
         </dependency>
     </dependencies>
 

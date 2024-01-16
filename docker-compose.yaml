@@ -1,0 +1,28 @@
+name: simulation-system
+services:
+  simulation-db:
+    image: postgres:latest
+    healthcheck:
+      test: exit 0
+    environment:
+      POSTGRES_USER: simulation-user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: simulation-db
+
+  simulation-module:
+    depends_on:
+      simulation-db:
+        condition: service_healthy
+    build:
+      context: .
+    environment:
+      WEATHER_API_KEY: 216313bd6f7a4ad6ac2142956231512
+      SPRING_DATASOURCE_URL: jdbc:postgresql://simulation-db:5432/simulation-db
+      SPRING_DATASOURCE_USERNAME: simulation-user
+      SPRING_DATASOURCE_PASSWORD: password
+      MQTT_CLIENT_USERNAME: rabbitmq-user
+      MQTT_CLIENT_PASSWORD: password
+      MQTT_BROKER_URL: tcp://rabbitmq:1883
+      TZ: "Europe/Warsaw"
+    ports:
+      - 8080:8080
