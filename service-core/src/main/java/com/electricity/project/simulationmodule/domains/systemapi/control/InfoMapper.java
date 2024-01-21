@@ -10,6 +10,9 @@ import com.electricity.project.simulationmodule.domains.systemapi.control.except
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class InfoMapper {
 
@@ -25,7 +28,7 @@ public final class InfoMapper {
         return WindTurbineInfoDTO.builder()
                 .ipv6Address(windTurbine.getIpv6Address())
                 .state(windTurbine.getState())
-                .creationTime(windTurbine.getCreationTime())
+                .creationTime(windTurbine.getCreationTime().atZone(ZoneId.of("Europe/Warsaw")))
                 .maxPower(windTurbine.getMaxPower())
                 .bladeLength(windTurbine.getBladeLength())
                 .build();
@@ -35,7 +38,7 @@ public final class InfoMapper {
         return SolarPanelInfoDTO.builder()
                 .ipv6Address(solarPanel.getIpv6Address())
                 .state(solarPanel.getState())
-                .creationTime(solarPanel.getCreationTime())
+                .creationTime(solarPanel.getCreationTime().atZone(ZoneId.of("Europe/Warsaw")))
                 .maxPower(solarPanel.getMaxPower())
                 .optimalTemperature(solarPanel.getOptimalTemperature())
                 .build();
