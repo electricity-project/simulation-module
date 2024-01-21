@@ -43,7 +43,7 @@ public class WindTurbineProductionTask extends PowerProductionTask<WindTurbine> 
         if (powerStation.getMinimalEffectivityCoefficient() > windSpeed) {
             return 0.0;
         } else if (powerStation.getMaximalEffectivityCoefficient() < windSpeed) {
-            return Math.pow(powerStation.getMaximalEffectivityCoefficient(), 3) * powerStation.getPowerCoefficient();
+            return Math.pow(powerStation.getMaximalEffectivityCoefficient(), 3) * powerStation.getPowerCoefficient() / 100;
         } else {
             return Math.pow(windSpeed, 3) * powerStation.getPowerCoefficient() / 100;
         }
