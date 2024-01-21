@@ -28,7 +28,7 @@ public final class InfoMapper {
         return WindTurbineInfoDTO.builder()
                 .ipv6Address(windTurbine.getIpv6Address())
                 .state(windTurbine.getState())
-                .creationTime(windTurbine.getCreationTime().atZone(ZoneId.of("Europe/Warsaw")))
+                .creationTime(windTurbine.getCreationTime())
                 .maxPower(windTurbine.getMaxPower())
                 .bladeLength(windTurbine.getBladeLength())
                 .build();
@@ -38,7 +38,7 @@ public final class InfoMapper {
         return SolarPanelInfoDTO.builder()
                 .ipv6Address(solarPanel.getIpv6Address())
                 .state(solarPanel.getState())
-                .creationTime(solarPanel.getCreationTime().atZone(ZoneId.of("Europe/Warsaw")))
+                .creationTime(solarPanel.getCreationTime())
                 .maxPower(solarPanel.getMaxPower())
                 .optimalTemperature(solarPanel.getOptimalTemperature())
                 .build();

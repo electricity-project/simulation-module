@@ -23,6 +23,5 @@ services:
       MQTT_CLIENT_USERNAME: rabbitmq-user
       MQTT_CLIENT_PASSWORD: password
       MQTT_BROKER_URL: tcp://rabbitmq:1883
-      TZ: "Europe/Warsaw"
     ports:
       - 8080:8080

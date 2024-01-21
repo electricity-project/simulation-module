@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +53,7 @@ public class InitializeDatabase {
 
         ImmutableWindTurbineDTO.Builder windTurbineBuilder = WindTurbineDTO.builder()
                 .bladeLength(30L)
-                .creationTime(LocalDateTime.now())
+                .creationTime(ZonedDateTime.now())
                 .state(PowerStationState.WORKING)
                 .isConnected(false)
                 .minimalEffectivityCoefficient(5L)
@@ -72,7 +72,7 @@ public class InitializeDatabase {
         List<SolarPanelDTO> solarPanels = new ArrayList<>();
 
         ImmutableSolarPanelDTO.Builder solarPanelBuilder = SolarPanelDTO.builder()
-                .creationTime(LocalDateTime.now())
+                .creationTime(ZonedDateTime.now())
                 .state(PowerStationState.WORKING)
                 .isConnected(false)
                 .maxPower(100)
