@@ -31,7 +31,7 @@ public class PowerProductionScheduler {
     }
 
     @Async
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "10 * * * * ?")
     public void countPowerAndStateForPowerStations() {
         ZonedDateTime messageTimestamp = ZonedDateTime.now();
         weatherUpdater.update().ifPresentOrElse(
