@@ -32,20 +32,26 @@ public class SystemApiService {
 
     public void startPowerStation(String ipv6Address) {
         PowerStation powerStation = getPowerStationByIp(ipv6Address);
-        if (powerStation.getState() != PowerStationState.STOPPED && powerStation.getState() != PowerStationState.WORKING) {
-            throw new IncorrectStateForOperationException(powerStation.getState(), "START");
+
+        switch (powerStation.getState()) {
+            case STOPPED, STOPPED_BY_USER -> {
+                powerStation.setState(PowerStationState.WORKING);
+                powerStationRepository.save(powerStation);
+            }
+            default -> throw new IncorrectStateForOperationException(powerStation.getState(), "START");
         }
-        powerStation.setState(PowerStationState.WORKING);
-        powerStationRepository.save(powerStation);
     }
 
-    public void stopPowerStation(String ipv6Address) {
+    public void stopPowerStation(String ipv6Address, boolean stoppedByUser) {
         PowerStation powerStation = getPowerStationByIp(ipv6Address);
-        if (powerStation.getState() != PowerStationState.WORKING && powerStation.getState() != PowerStationState.STOPPED) {
-            throw new IncorrectStateForOperationException(powerStation.getState(), "STOP");
+
+        switch (powerStation.getState()) {
+            case WORKING -> {
+                powerStation.setState(stoppedByUser ? PowerStationState.STOPPED_BY_USER : PowerStationState.STOPPED);
+                powerStationRepository.save(powerStation);
+            }
+            default -> throw new IncorrectStateForOperationException(powerStation.getState(), "STOP");
         }
-        powerStation.setState(PowerStationState.STOPPED);
-        powerStationRepository.save(powerStation);
     }
 
     private PowerStation getPowerStationByIp(String ipv6Address) {

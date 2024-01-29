@@ -78,7 +78,8 @@ public abstract class PowerProductionTask<T extends PowerStation> implements Run
         switch (powerStation.getState()) {
             case WORKING ->
                     log.info("Power station: {}, state: {}, produced: {} MWh", powerStation.getIpv6Address(), powerStation.getState(), powerProduction);
-            case DAMAGED, STOPPED, MAINTENANCE ->
+
+            default ->
                     log.info("Power station: {}, not working, state: {}", powerStation.getIpv6Address(), powerStation.getState());
         }
     }

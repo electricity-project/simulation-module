@@ -43,7 +43,13 @@ public class SystemApiResource {
 
     @GetMapping("/stop")
     public ResponseEntity<Void> stopPowerStation(@RequestParam String ipv6Address) {
-        systemApiService.stopPowerStation(ipv6Address);
+        systemApiService.stopPowerStation(ipv6Address, false);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/manual-stop")
+    public ResponseEntity<Void> stopByUserPowerStation(@RequestParam String ipv6Address) {
+        systemApiService.stopPowerStation(ipv6Address, true);
         return ResponseEntity.ok().build();
     }
 
